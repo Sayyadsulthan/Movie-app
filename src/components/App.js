@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
 import React from "react";
 import { data } from "../data";
+import { addMovies } from "../actions";
 class App extends React.Component {
   componentDidMount() {
     const { store } = this.props;
@@ -11,10 +12,7 @@ class App extends React.Component {
       this.forceUpdate();
     });
 
-    store.dispatch({
-      type: "Add_Movie",
-      movies: data,
-    });
+    store.dispatch(addMovies(data));
 
     console.log(this.props.store.getState());
   }
