@@ -1,8 +1,19 @@
 import React from "react";
+import { addFavourites } from "../actions";
 
 class MovieCard extends React.Component {
+  // used to handle the adding favourite to state
+  handleAddFavourite = () => {
+    const { movie } = this.props;
+
+    this.props.dispatch(addFavourites(movie));
+  };
+
+  handleRemoveFavourite = () => {};
+
   render() {
     const { movie } = this.props;
+    const { isFavourite } = this.props;
     return (
       <div className="movie-card">
         <div className="left">
@@ -13,7 +24,22 @@ class MovieCard extends React.Component {
           <div className="plot">{movie.Plot}</div>
           <div className="footer">
             <div className="rating">{movie.imdbRating}</div>
-            <button className="favourite-btn">favourite</button>
+            {/* {console.log(isMovieFavourite)} */}
+            {isFavourite ? (
+              <button
+                className="unfavourite-btn"
+                onClick={this.handleRemoveFavourite}
+              >
+                Unfavourite
+              </button>
+            ) : (
+              <button
+                className="favourite-btn"
+                onClick={this.handleAddFavourite}
+              >
+                favourite
+              </button>
+            )}
           </div>
         </div>
       </div>
