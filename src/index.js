@@ -9,16 +9,16 @@ const store = createStore(movie);
 console.log("store", store);
 console.log("BEFORE state", store.getState());
 
-store.dispatch({
-  type: "Add_Movie",
-  movies: [{ title: "sayyad" }],
-});
+// store.dispatch({
+//   type: "Add_Movie",
+//   movies: [{ title: "sayyad" }],
+// });
 
-console.log("AFTER state", store.getState());
+// console.log("AFTER state", store.getState());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <App store={store} />
   </React.StrictMode>
 );
