@@ -6,8 +6,8 @@ import App from "./components/App";
 import movie from "./reducers";
 
 const store = createStore(movie);
-console.log("store", store);
-console.log("BEFORE state", store.getState());
+// console.log("store", store);
+// console.log("BEFORE state", store.getState());
 
 // store.dispatch({
 //   type: "Add_Movie",
