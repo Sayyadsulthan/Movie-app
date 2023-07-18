@@ -1,11 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 
 import App from "./components/App";
 import rootReducer from "./reducers";
 
-const store = createStore(rootReducer);
+// funtion logger(obj, next, action)
+// logger(obj)(next)(action)
+//obj = { dispatch: (), getState:()}
+const logger = function logger({ dispatch, getState }) {
+  return function (next) {
+    return function (action) {
+      console.log("ACTION TYPE = ", action.type);
+      // console.log("ACTION =", action);
+      next(action);
+    };
+  };
+};
+
+const store = createStore(rootReducer, applyMiddleware(logger));
 console.log("store", store);
 console.log("BEFORE state", store.getState());
 
