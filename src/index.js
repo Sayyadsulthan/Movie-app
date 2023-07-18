@@ -8,6 +8,7 @@ import rootReducer from "./reducers";
 // funtion logger(obj, next, action)
 // logger(obj)(next)(action)
 //obj = { dispatch: (), getState:()}
+/*
 const logger = function logger({ dispatch, getState }) {
   return function (next) {
     return function (action) {
@@ -17,6 +18,13 @@ const logger = function logger({ dispatch, getState }) {
     };
   };
 };
+*/
+
+const logger = ({ dispatch, getState }) =>(next) =>(action) => {
+  // logger code
+    console.log("ACTION_TYPE = ", action.type);
+    next(action);
+  };
 
 const store = createStore(rootReducer, applyMiddleware(logger));
 console.log("store", store);
