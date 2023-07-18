@@ -18,9 +18,10 @@ class App extends React.Component {
   }
 
   isMovieFavourite = (movie) => {
-    const { favourites } = this.props.store.getState();
+    const { movies } = this.props.store.getState();
+    // const { favourites } = movies;
 
-    const index = favourites.indexOf(movie);
+    const index = movies.favourites.indexOf(movie);
 
     // if the index is not empty or index of movie exist
     if (index !== -1) {
@@ -34,8 +35,9 @@ class App extends React.Component {
   };
 
   render() {
-    // console.log("App component", this.props.store.getState());
-    const { list, favourites, showFavourites } = this.props.store.getState();
+    console.log("App component", this.props.store.getState());
+    const { movies } = this.props.store.getState();
+    const { list, favourites, showFavourites } = movies;
     return (
       <div className="App">
         <Navbar />
@@ -74,7 +76,7 @@ class App extends React.Component {
                 />
               ))}
 
-          {favourites.length == 0 && (
+          {favourites.length === 0 && (
             <div className="no-movies"> No Movies to show...! </div>
           )}
         </div>
