@@ -2,6 +2,8 @@ import { combineReducers } from "redux";
 
 import {
   ADD_MOVIES,
+  ADD_MOVIE_TO_LIST,
+  ADD_SEARCH_RESULT,
   ADD_TO_FAVOURITES,
   REMOVE_FROM_FAVOURITE,
   SET_SHOW_FAVOURITES,
@@ -19,12 +21,10 @@ export function movies(state = inintalMovieState, action) {
     case ADD_MOVIES:
       return {
         ...state,
-        list: action.movies,
+        list: [...action.movies],
       };
 
     case ADD_TO_FAVOURITES:
-      // console.log(action);
-
       return {
         ...state,
         favourites: [...state.favourites, action.movie],
@@ -34,11 +34,11 @@ export function movies(state = inintalMovieState, action) {
       const updatedFavourite = state.favourites.filter(
         (movie) => movie.Title !== action.movie.Title
       );
-
       return {
         ...state,
         favourites: updatedFavourite,
       };
+
     // const index = state.favourites.indexOf(action.movie);
     // if (index !== -1) {
     //   let updatedFavourite = state.favourites;
@@ -52,6 +52,12 @@ export function movies(state = inintalMovieState, action) {
     //     ...state,
     //   };
     // }
+
+    case ADD_MOVIE_TO_LIST:
+      return {
+        ...state,
+        list: [action.movie, ...state.list],
+      };
 
     case SET_SHOW_FAVOURITES:
       return {
@@ -77,7 +83,15 @@ const initialSearchState = {
 };
 
 export function search(state = initialSearchState, action) {
-  return state;
+  switch (action.type) {
+    case ADD_SEARCH_RESULT:
+      return {
+        ...state,
+        result: action.movie,
+      };
+    default:
+      return state;
+  }
 }
 
 // const initialRootState = {
