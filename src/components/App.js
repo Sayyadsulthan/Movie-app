@@ -4,6 +4,8 @@ import MovieCard from "./MovieCard";
 import React from "react";
 import { data } from "../data";
 import { addMovies, setShowFavourites } from "../actions";
+import { StoreContext } from "../index";
+
 class App extends React.Component {
   componentDidMount() {
     const { store } = this.props;
@@ -38,8 +40,9 @@ class App extends React.Component {
     console.log("App component", this.props.store.getState());
     const { movies, search } = this.props.store.getState();
     const { list, favourites, showFavourites } = movies;
+
     return (
-      <div className="App" >
+      <div className="App">
         <Navbar dispatch={this.props.store.dispatch} search={search} />
 
         <div className="main">
@@ -85,4 +88,17 @@ class App extends React.Component {
   }
 }
 
-export default App;
+// USING THE WRAPPERAPP CLASS TO WRAP THE APP COMPONENT
+class AppWrapper extends React.Component {
+  render() {
+    return (
+      <StoreContext.Consumer>
+        {(store) => {
+          return <App store={store} />;
+        }}
+      </StoreContext.Consumer>
+    );
+  }
+}
+
+export default AppWrapper;

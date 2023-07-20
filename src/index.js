@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import { createStore, applyMiddleware } from "redux";
 
@@ -20,12 +20,15 @@ const logger = function logger({ dispatch, getState }) {
 };
 */
 
-const logger = ({ dispatch, getState }) =>(next) =>(action) => {
-  // logger code
+const logger =
+  ({ dispatch, getState }) =>
+  (next) =>
+  (action) => {
+    // logger code
     console.log("ACTION_TYPE = ", action.type);
-    if (typeof action === 'function') {
+    if (typeof action === "function") {
       // then call the function and pass `dispatch` and `getState` as arguments
-      return action(dispatch, getState)
+      return action(dispatch, getState);
     }
     return next(action);
   };
@@ -41,9 +44,25 @@ console.log("BEFORE state", store.getState());
 
 // console.log("AFTER state", store.getState());
 
+// CREATED THE PRIVATE PROVIDER CLASS
+class Provider extends React.Component {
+  render() {
+    const { store } = this.props;
+    return (
+      <StoreContext.Provider value={store}>
+        {this.props.children}
+      </StoreContext.Provider>
+    );
+  }
+}
+
+export const StoreContext = createContext();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App store={store} />
+    <Provider store={store}>
+      <App  />
+    </Provider>
   </React.StrictMode>
 );

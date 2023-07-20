@@ -59,7 +59,7 @@ export function addSearchResult(movie) {
   };
 }
 
-export function handleAddToMovieToList(movie) {
+export function handleAddMovieToList(movie) {
   return {
     type: ADD_MOVIE_TO_LIST,
     movie,
