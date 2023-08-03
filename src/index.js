@@ -1,6 +1,7 @@
 import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
 
 import App from "./components/App";
 import rootReducer from "./reducers";
@@ -44,6 +45,9 @@ console.log("BEFORE state", store.getState());
 
 // console.log("AFTER state", store.getState());
 
+/*
+export const StoreContext = createContext();
+
 // CREATED THE PRIVATE PROVIDER CLASS
 class Provider extends React.Component {
   render() {
@@ -55,9 +59,9 @@ class Provider extends React.Component {
     );
   }
 }
+*/
 
-export const StoreContext = createContext();
-
+/*
 // const connectedAppComponent = connect(callback)(App);
 
 export function connect(callback) {
@@ -96,6 +100,8 @@ export function connect(callback) {
     return ConnectedCpmponentWrapper;
   };
 }
+
+*/
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

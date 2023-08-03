@@ -92,11 +92,11 @@ export function search(state = initialSearchState, action) {
         showSearchResults: true,
       };
 
-    // case ADD_MOVIE_TO_LIST:
-    //   return {
-    //     ...state,
-    //     showSearchResults: false,
-    //   };
+    case ADD_MOVIE_TO_LIST:
+      return {
+        ...state,
+        showSearchResults: false,
+      };
     default:
       return state;
   }
