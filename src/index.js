@@ -58,11 +58,50 @@ class Provider extends React.Component {
 
 export const StoreContext = createContext();
 
+// const connectedAppComponent = connect(callback)(App);
+
+export function connect(callback) {
+  return function (Component) {
+    class ConnectedCpmponent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.unSubscribe = this.props.store.subscribe(() => this.forceUpdate());
+      }
+
+      componentWillUnmount() {
+        this.unSubscribe();
+      }
+      render() {
+        // the store will be getting from the ConnectedCpmponentWrapper
+        const { store } = this.props;
+        const state = store.getState();
+        const dataToBeStored = callback(state); //callback returns the required state props
+        return (
+          // {...dataToBeStored} will work like movies = state.movie, search = state.search
+          <Component {...dataToBeStored} dispatch={store.dispatch} />
+        );
+      }
+    }
+
+    class ConnectedCpmponentWrapper extends React.Component {
+      render() {
+        return (
+          <StoreContext.Consumer>
+            {(store) => <ConnectedCpmponent store={store} />}
+          </StoreContext.Consumer>
+        );
+      }
+    }
+
+    return ConnectedCpmponentWrapper;
+  };
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App  />
+      <App />
     </Provider>
   </React.StrictMode>
 );
